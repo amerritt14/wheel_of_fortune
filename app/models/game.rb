@@ -19,6 +19,10 @@ class Game < ApplicationRecord
     end.join("")
   end
 
+  def words_after_guesses
+    phrase_after_guesses.split(/(?<=[ ])\s*/).map{ |word| word.split("") }
+  end
+
   def guessed_letters
     guesses.pluck(:letter).uniq.map(&:upcase)
   end
@@ -26,13 +30,14 @@ class Game < ApplicationRecord
   def make_guess(letter)
     Guess.create(letter: letter, game: self)
   end
-
-  private
-
+  
   # returns 0 if true, nil if false
   def is_letter?(letter)
     letter =~ /[[:alpha:]]/
   end
+
+
+  private
 
   def set_puzzle
     self.puzzle ||= Puzzle.all.sample

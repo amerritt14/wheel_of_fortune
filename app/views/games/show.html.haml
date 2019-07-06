@@ -1,0 +1,5 @@
+.flex-container
+  - @game.words_after_guesses.each do |word|
+    .word
+      - word.each do |letter|
+        = render "letter", letter: letter, game: @game
