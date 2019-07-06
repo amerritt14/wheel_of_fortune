@@ -2,10 +2,13 @@
 
 class Game < ApplicationRecord
   delegate :phrase, to: :puzzle
+
   belongs_to :puzzle
   has_many :guesses, dependent: :destroy
 
   before_validation :set_puzzle
+
+  attr_accessor :guessed_letter
 
   def phrase_after_guesses
     phrase.upcase.split("").map do |letter|
@@ -30,7 +33,7 @@ class Game < ApplicationRecord
   def make_guess(letter)
     Guess.create(letter: letter, game: self)
   end
-  
+
   # returns 0 if true, nil if false
   def is_letter?(letter)
     letter =~ /[[:alpha:]]/

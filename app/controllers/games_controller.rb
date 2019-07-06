@@ -41,12 +41,12 @@ class GamesController < ApplicationController
   # PATCH/PUT /games/1.json
   def update
     respond_to do |format|
-      if @game.update(game_params)
-        format.html { redirect_to @game, notice: 'Game was successfully updated.' }
-        format.json { render :show, status: :ok, location: @game }
+      if @game.make_guess(params["game"]["guessed_letter"])
+        format.html { redirect_to @game }
+        format.json { render :show, status: :created, location: @game }
       else
-        format.html { render :edit }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
+        format.html { redirect_to @game, notice: 'Invalid guess' }
+        format.json { render :show, status: :created, location: @game }
       end
     end
   end
