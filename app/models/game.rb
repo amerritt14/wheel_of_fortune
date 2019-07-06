@@ -1,11 +1,38 @@
 # frozen_string_literal: true
 
 class Game < ApplicationRecord
+  delegate :phrase, to: :puzzle
   belongs_to :puzzle
+  has_many :guesses, dependent: :destroy
 
   before_validation :set_puzzle
 
+  def phrase_after_guesses
+    phrase.upcase.split("").map do |letter|
+      next letter unless is_letter?(letter)
+
+      if guessed_letters.include?(letter)
+        letter
+      else
+        "_"
+      end
+    end.join("")
+  end
+
+  def guessed_letters
+    guesses.pluck(:letter).uniq.map(&:upcase)
+  end
+
+  def make_guess(letter)
+    Guess.create(letter: letter, game: self)
+  end
+
   private
+
+  # returns 0 if true, nil if false
+  def is_letter?(letter)
+    letter =~ /[[:alpha:]]/
+  end
 
   def set_puzzle
     self.puzzle ||= Puzzle.all.sample
