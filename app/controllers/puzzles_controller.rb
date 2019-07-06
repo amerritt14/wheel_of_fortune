@@ -69,6 +69,6 @@ class PuzzlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def puzzle_params
-      params.fetch(:puzzle, {})
+      params.require(:puzzle).permit(:phrase)
     end
 end

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PuzzlesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @puzzle = puzzles(:one)
+    @puzzle = puzzles(:default)
   end
 
   test "should get index" do
@@ -17,7 +17,7 @@ class PuzzlesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create puzzle" do
     assert_difference('Puzzle.count') do
-      post puzzles_url, params: { puzzle: {  } }
+      post puzzles_url, params: { puzzle: { phrase: "The rain in spain" } }
     end
 
     assert_redirected_to puzzle_url(Puzzle.last)
@@ -34,7 +34,7 @@ class PuzzlesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update puzzle" do
-    patch puzzle_url(@puzzle), params: { puzzle: {  } }
+    patch puzzle_url(@puzzle), params: { puzzle: { phrase: "The rain in spain" } }
     assert_redirected_to puzzle_url(@puzzle)
   end
 
