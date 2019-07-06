@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :guesses
   resources :letters
   resources :games
   resources :puzzles
