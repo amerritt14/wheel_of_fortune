@@ -1,0 +1,8 @@
+.flex-container
+  - @round.words_after_guesses.each do |word|
+    .word
+      - word.each do |letter|
+        = render "letter", letter: letter, round: @round
+
+.flex-container.pb-10
+  = render "form", round: @round

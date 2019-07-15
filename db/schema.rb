@@ -10,13 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_06_213936) do
+ActiveRecord::Schema.define(version: 2019_07_15_114826) do
 
   create_table "games", force: :cascade do |t|
-    t.integer "puzzle_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["puzzle_id"], name: "index_games_on_puzzle_id"
   end
 
   create_table "guesses", force: :cascade do |t|
@@ -31,6 +29,14 @@ ActiveRecord::Schema.define(version: 2019_07_06_213936) do
     t.string "phrase"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "rounds", force: :cascade do |t|
+    t.integer "puzzle_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "game_id"
+    t.index ["puzzle_id"], name: "index_rounds_on_puzzle_id"
   end
 
 end

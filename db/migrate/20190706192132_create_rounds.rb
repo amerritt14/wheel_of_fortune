@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class CreateGames < ActiveRecord::Migration[5.2]
+class CreateRounds < ActiveRecord::Migration[5.2]
   def change
-    create_table :games do |t|
+    create_table :rounds do |t|
       t.references :puzzle
 
       t.timestamps
