@@ -3,8 +3,13 @@
 class Round < ApplicationRecord
   delegate :phrase, to: :puzzle
 
+  belongs_to :game
   belongs_to :puzzle
+
+  has_one :current_player, class: "Player"
+
   has_many :guesses, dependent: :destroy
+  has_many :players, through: :game
 
   before_validation :set_puzzle
 
