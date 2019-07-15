@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_15_114826) do
+ActiveRecord::Schema.define(version: 2019_07_15_120920) do
+
+  create_table "game_players", force: :cascade do |t|
+    t.integer "player_id"
+    t.integer "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_game_players_on_game_id"
+    t.index ["player_id"], name: "index_game_players_on_player_id"
+  end
 
   create_table "games", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -23,6 +32,11 @@ ActiveRecord::Schema.define(version: 2019_07_15_114826) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_guesses_on_game_id"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "puzzles", force: :cascade do |t|
