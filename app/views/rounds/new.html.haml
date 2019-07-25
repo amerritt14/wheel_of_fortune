@@ -1,0 +1,4 @@
+%h1 New Round
+= form_for [@game, Round.new] do |f|
+  = f.hidden_field :game_id, value: @game.id
+  = f.submit "Start Round", class: "button"
