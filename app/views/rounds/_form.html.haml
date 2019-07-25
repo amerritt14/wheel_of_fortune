@@ -1,4 +1,4 @@
-= form_for round do |f|
+= form_for [@game, round] do |f|
   = f.text_field :guessed_letter, maxlength: 1
 
   = f.submit "Guess", class: "button"

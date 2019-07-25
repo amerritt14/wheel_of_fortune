@@ -1,5 +1,6 @@
 class RoundsController < ApplicationController
   before_action :set_round, only: [:show, :edit, :update, :destroy]
+  before_action :set_game
 
   # GET /rounds
   # GET /rounds.json
@@ -28,7 +29,7 @@ class RoundsController < ApplicationController
 
     respond_to do |format|
       if @round.save
-        format.html { redirect_to @round, notice: 'Round was successfully created.' }
+        format.html { redirect_to game_round_path(@game, @round), notice: 'Round was successfully started!' }
         format.json { render :show, status: :created, location: @round }
       else
         format.html { render :new }
@@ -42,10 +43,10 @@ class RoundsController < ApplicationController
   def update
     respond_to do |format|
       if @round.make_guess(params["round"]["guessed_letter"])
-        format.html { redirect_to @round }
+        format.html { redirect_to game_round_path(@game, @round) }
         format.json { render :show, status: :created, location: @round }
       else
-        format.html { redirect_to @round, notice: 'Invalid guess' }
+        format.html { redirect_to game_round_path(@game, @round), notice: 'Invalid guess' }
         format.json { render :show, status: :created, location: @round }
       end
     end
@@ -67,8 +68,12 @@ class RoundsController < ApplicationController
       @round = Round.find(params[:id])
     end
 
+    def set_game
+      @game = Game.find(params[:game_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def round_params
-      params.fetch(:round, {})
+      params.require(:round).permit(:game_id)
     end
 end

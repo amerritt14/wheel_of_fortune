@@ -6,7 +6,7 @@ class Round < ApplicationRecord
   belongs_to :game
   belongs_to :puzzle
 
-  has_one :current_player, class: "Player"
+  has_one :current_player, class_name: "Player"
 
   has_many :guesses, dependent: :destroy
   has_many :players, through: :game
